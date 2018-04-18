@@ -350,7 +350,10 @@ function Import-Credential
             {
                 $Password = $(ConvertTo-SecureString $StandardObject.SecurePasswordString)
             }
-
+	    if(!$($standardObject.Domain))
+	    {
+	    	$standardObject.Domain = "$env:Computername"
+	    }
             $psCredentialObject = New-Object System.Management.Automation.PSCredential ("$($StandardObject.Domain)\$($StandardObject.Username)", $Password)
 
             return $psCredentialObject
